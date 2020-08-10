@@ -14,6 +14,18 @@ jobs:
           issue="${BRANCH_NAME##*-}"
           ! [[ "${issue}" =~ ^[0-9]+$ ]] && >&2 echo "issue num not parsed" && exit 1
           echo "::set-env name=BRANCH_ISSUE::${issue}"
+      - name: Create pull request
+        run: |
+          infoFile="commits_info"
+          git log \
+            --left-right \
+            --graph \
+            --cherry-pick \
+            --oneline \
+            --pretty=format:%s \
+            master..${BRANCH_NAME} >> ${infoFile}
+          echo >> ${infoFile} # add missing newline
+          cat ${infoFile}
       - uses: ./.github/actions/hello
         with:
           MY_NAME: "Mona"
