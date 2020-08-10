@@ -6,9 +6,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: ./.github/actions/branch-info
+      - name: Set branch name envvar
+        run: |
+          echo "::set-env name=BRANCH_NAME::${GITHUB_REF#refs/heads/}"
+      - name: Set branch issue envvar
+        run: |
+          issue="${BRANCH_NAME##*-}"
+          [[ "${issue}" =~ '^[0-9]+$' ]] || >&2 echo "issue num not parsed"; exit 1
+          echo "::set-env name=BRANCH_ISSUE::${issue}"
       - uses: ./.github/actions/hello
         with:
           MY_NAME: "Mona"
-          BRANCH_NAME: ${{ steps.branch-info.outputs.name }}
-          BRANCH_ISSUE: ${{ steps.branch-info.outputs.issue }}
+          BRANCH_NAME: ${{ env.BRANCH_NAME }}
+          BRANCH_ISSUE: ${ env.BRANCH_ISSUE }}
