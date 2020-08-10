@@ -23,7 +23,7 @@ jobs:
             --cherry-pick \
             --oneline \
             --pretty=format:%s \
-            master..${BRANCH_NAME} >> ${infoFile}
+            master.. >> ${infoFile}
           echo >> ${infoFile} # add missing newline
           cat ${infoFile}
       - uses: ./.github/actions/hello
