@@ -12,7 +12,7 @@ jobs:
       - name: Set branch issue envvar
         run: |
           issue="${BRANCH_NAME##*-}"
-          [[ "${issue}" =~ ^[0-9]+$ ]] || >&2 echo "issue num not parsed"; exit 1
+          ! [[ "${issue}" =~ ^[0-9]+$ ]] && >&2 echo "issue num not parsed" && exit 1
           echo "::set-env name=BRANCH_ISSUE::${issue}"
       - uses: ./.github/actions/hello
         with:
