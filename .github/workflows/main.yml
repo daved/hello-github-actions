@@ -18,4 +18,4 @@ jobs:
         with:
           MY_NAME: "Mona"
           BRANCH_NAME: ${{ env.BRANCH_NAME }}
-          BRANCH_ISSUE: ${ env.BRANCH_ISSUE }}
+          BRANCH_ISSUE: ${{ env.BRANCH_ISSUE }}
