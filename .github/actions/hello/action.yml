@@ -7,6 +7,10 @@ inputs:
     description: "Who to greet"
     required: true
     default: "World"
+  BRANCH_NAME:
+    description: "Parsed branch name"
+  BRANCH_ISSUE:
+    description: "Parsed branch issue"
 
 runs:
   using: "docker"

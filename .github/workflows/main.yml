@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - uses: ./.github/actions/branch-info
       - uses: ./.github/actions/hello
         with:
           MY_NAME: "Mona"
+          BRANCH_NAME: ${{ steps.branch-info.outputs.name }}
+          BRANCH_ISSUE: ${{ steps.branch-info.outputs.issue }}
