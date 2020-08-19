@@ -16,7 +16,7 @@ jobs:
           echo "::set-env name=BRANCH_ISSUE::${issue}"
       - name: Create pull request
         run: |
-          hub pr list
+          hub issue
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: ./.github/actions/hello
