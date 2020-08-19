@@ -15,9 +15,32 @@ jobs:
       - name: Set branch issue envvar
         run: |
           issue="${BRANCH_NAME##*-}"
-          ! [[ "${issue}" =~ ^[0-9]+$ ]] && echo "::set-env name=CALL_SUBSEQUENT::false"
+          ! [[ "${issue}" =~ ^[0-9]+$ ]] || echo "::set-env name=CALL_SUBSEQUENT::false"
           echo "::set-env name=BRANCH_ISSUE::${issue}"
       - name: Halt if PR for branch exists AND most recent commit is not NOWIP
         if: env.CALL_SUBSEQUENT
         run: |
           echo "TEST"
+      - name: Create pull request
+        run: |
+          set -e
+          hub issue
+          infoFile="commits_info"
+          git log \
+            --left-right \
+            --graph \
+            --cherry-pick \
+            --oneline \
+            --pretty=format:%s \
+            origin/master..origin/"${BRANCH_NAME}" >> "${infoFile}"
+          echo >> "${infoFile}" # add missing newline
+          tac "${infoFile}" > "rev_${infoFile}" && mv "rev_${infoFile}" "${infoFile}" # reverse data
+          wipLine="$(cat "${infoFile}" | grep "^> WIP" -n | head -n 1 | cut -d : -f1)"
+          if 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./.github/actions/hello
+        with:
+          MY_NAME: "Mona"
+          BRANCH_NAME: ${{ env.BRANCH_NAME }}
+          BRANCH_ISSUE: ${{ env.BRANCH_ISSUE }}
