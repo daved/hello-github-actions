@@ -8,7 +8,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Set continuation envvar
         run: |
-          echo "::set-env name=CALL_SUBSEQUENT::true"
+          echo "::set-env name=CALL_SUBSEQUENT::false"
       - name: Set branch name envvar
         run: |
           echo "::set-env name=BRANCH_NAME::${GITHUB_REF#refs/heads/}"
