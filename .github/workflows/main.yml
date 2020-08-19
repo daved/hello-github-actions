@@ -24,7 +24,7 @@ jobs:
             --cherry-pick \
             --oneline \
             --pretty=format:%s \
-            master origin/"${BRANCH_NAME}" >> ${infoFile}
+            origin/master origin/"${BRANCH_NAME}" >> ${infoFile}
           echo >> ${infoFile} # add missing newline
           cat ${infoFile}
         env:
