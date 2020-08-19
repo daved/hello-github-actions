@@ -18,7 +18,7 @@ jobs:
           ! [[ "${issue}" =~ ^[0-9]+$ ]] || echo "::set-env name=CALL_SUBSEQUENT::false"
           echo "::set-env name=BRANCH_ISSUE::${issue}"
       - name: Halt if PR for branch exists AND most recent commit is not NOWIP
-        if: env.CALL_SUBSEQUENT
+        if: env.CALL_SUBSEQUENT == "true"
         run: |
           echo "TEST"
       - name: Create pull request
