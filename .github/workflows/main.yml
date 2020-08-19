@@ -16,9 +16,9 @@ jobs:
           echo "::set-env name=BRANCH_ISSUE::${issue}"
       - name: Create pull request
         run: |
-          hub clone "${GITHUB_REPOSITORY}"
-          cd "${GITHUB_REPOSITORY#*/}"
-          ls -la
+          hub pr list
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: ./.github/actions/hello
         with:
           MY_NAME: "Mona"
