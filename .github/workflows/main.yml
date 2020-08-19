@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      -name: Set continuation envvar
+      - name: Set continuation envvar
         run: |
           echo "::set-env name=CALL_SUBSEQUENT::true"
       - name: Set branch name envvar
