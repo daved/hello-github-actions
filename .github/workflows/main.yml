@@ -17,6 +17,16 @@ jobs:
       - name: Create pull request
         run: |
           hub issue
+          infoFile="commits_info"
+          git log \
+            --left-right \
+            --graph \
+            --cherry-pick \
+            --oneline \
+            --pretty=format:%s \
+            master.."${BRANCH_NAME}" >> ${infoFile}
+          echo >> ${infoFile} # add missing newline
+          cat ${infoFile}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: ./.github/actions/hello
